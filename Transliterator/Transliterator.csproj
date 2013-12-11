@@ -40,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FromEnglishToRussianTransliterator.cs" />
-    <Compile Include="FromRussianToEnglishTransliterator.cs" />
+    <Compile Include="FromLatinToAnotherLanguageTransliterator.cs" />
+    <Compile Include="Russian\FromLatinToRussianTransliterator.cs" />
+    <Compile Include="FromAnotherLanguageToLatinTransliterator.cs" />
+    <Compile Include="Russian\FromRussianToLatinTransliterator.cs" />
     <Compile Include="InvertedIndexTree.cs" />
-    <Compile Include="Parser.cs" />
+    <Compile Include="ITransliterator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNode.cs" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Transliterator.Russian;
 
 namespace Transliterator.Tests
 {
@@ -16,7 +17,7 @@ namespace Transliterator.Tests
 
         private static void Test(string englishText, string expectedRussianText)
         {
-            FromEnglishToRussianTransliterator transliterator = new FromEnglishToRussianTransliterator();
+            FromLatinToRussianTransliterator transliterator = new FromLatinToRussianTransliterator();
             var str = transliterator.Transliterate(englishText);
             Assert.AreEqual(expectedRussianText, str);
         }
