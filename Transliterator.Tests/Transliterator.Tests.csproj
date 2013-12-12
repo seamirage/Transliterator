@@ -52,8 +52,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FromRussianToLatinTransliteratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FromEnglishToRussianTransliteratorTest.cs" />
+    <Compile Include="FromLatinToRussianTransliteratorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

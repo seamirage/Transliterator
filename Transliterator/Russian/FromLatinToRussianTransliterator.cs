@@ -44,7 +44,7 @@ namespace Transliterator.Russian
                            {"e-", 'ı'},
                            {"yu", 'ş'},
                            {"ya", 'ÿ'},
-                           {"_", '_'}
+                           {"_", ' '}
                        }
                 )
         {}

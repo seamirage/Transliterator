@@ -4,12 +4,18 @@ using Transliterator.Russian;
 namespace Transliterator.Tests
 {
     [TestFixture]
-    public class FromEnglishToRussianTransliteratorTest
+    public class FromLatinToRussianTransliteratorTest
     {
         [TestCase("shapka", "шапка")]
-        [TestCase("kash", "каш")]
-        [TestCase("lada_kalina", "лада_калина")]
-        [TestCase("prodam_dachu_s_banej_i_pech'yu_v_port_arture", "продам_дачу_с_баней_и_печью_в_порт_артуре")]
+        [TestCase("kesh", "кеш")]
+        [TestCase("lada_kalina", "лада калина")]
+        [TestCase("Zaglavnaya", "заглавная")]
+        [TestCase("yolka", "ёлка")]
+        [TestCase("char", "чар")]
+        [TestCase("car'", "царь")]
+        [TestCase("prodam_dachu_s_banej_i_pech'yu_v_port_arture", "продам дачу с баней и печью в порт артуре")]
+        [TestCase("e-kran", "экран")]
+        [TestCase("pod._em", "подъем")]
         public void TestIt(string english, string expectedRussian)
         {
             Test(english, expectedRussian);
