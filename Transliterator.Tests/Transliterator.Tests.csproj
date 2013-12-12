@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="FromRussianToLatinTransliteratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FromLatinToRussianTransliteratorTest.cs" />
+    <Compile Include="FromLatinToAnotherLanguageTransliteratorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

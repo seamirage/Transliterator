@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
-using Transliterator.Russian;
 
 namespace Transliterator.Tests
 {
     [TestFixture]
-    public class FromLatinToRussianTransliteratorTest
+    public class FromLatinToAnotherLanguageTransliteratorTest
     {
         [TestCase("shapka", "шапка")]
         [TestCase("kesh", "кеш")]
@@ -23,9 +22,9 @@ namespace Transliterator.Tests
 
         private static void Test(string englishText, string expectedRussianText)
         {
-            FromLatinToRussianTransliterator transliterator = new FromLatinToRussianTransliterator();
-            var str = transliterator.Transliterate(englishText);
-            Assert.AreEqual(expectedRussianText, str);
+            FromLatinToAnotherLanguageTransliterator transliterator = new FromLatinToAnotherLanguageTransliterator(UrlTransliterationTable.LatinToRussian);
+            var russianString = transliterator.Transliterate(englishText);
+            Assert.AreEqual(expectedRussianText, russianString);
         }
     }
 }
