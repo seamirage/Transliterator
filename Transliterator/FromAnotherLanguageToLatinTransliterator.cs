@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Transliterator
@@ -15,8 +16,15 @@ namespace Transliterator
             StringBuilder sb = new StringBuilder();
             foreach (char c in russianText)
             {
-                string translit = transliterationTable[c];
-                sb.Append(translit);
+                try
+                {
+                    string translit = transliterationTable[c];
+                    sb.Append(translit);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    throw new KeyNotFoundException(string.Format("Can't find {0} in transliteration table. Code: {1}", c, (int)c), ex);
+                }
             }
 
             return sb.ToString();

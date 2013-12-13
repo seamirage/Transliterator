@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Transliterator
 {
@@ -37,8 +38,18 @@ namespace Transliterator
             childNodes.Add(letter, node);
         }
 
+        public bool IsLeaf()
+        {
+            return !childNodes.Any();
+        }
+
+        public IEnumerable<KeyValuePair<char, TreeNode>> EnumerateChilds()
+        {
+            return childNodes;
+        }
+
         public bool IsEndpoint { get; private set; }
         public char RelatedLetter;
-        private Dictionary<char, TreeNode> childNodes;
+        private readonly Dictionary<char, TreeNode> childNodes;
     }
 }

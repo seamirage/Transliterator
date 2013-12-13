@@ -41,8 +41,23 @@ namespace Transliterator
                     {"e-", 'э'},
                     {"yu", 'ю'},
                     {"ya", 'я'},
-                    {"_", ' '}
-                }.ToDictionary(x => x.Value, y => y.Key);
+                    {"_", ' '},
+                    {"-", '-'},
+                    {"0", '0'},
+                    {"1", '1'},
+                    {"2", '2'},
+                    {"3", '3'},
+                    {"4", '4'},
+                    {"5", '5'},
+                    {"6", '6'},
+                    {"7", '7'},
+                    {"8", '8'},
+                    {"9", '9'},
+                    {"+", '+'},
+                    {"/", '/'},
+                    {"!", '!'},
+                    {"#", '#'}
+                }.Concat("qwertyuiopasdfghjklzxcvbnm_".Select(x => new KeyValuePair<string, char>(x.ToString(), x))).ToDictionary(x => x.Value, y => y.Key);
 
         public static IDictionary<string, char> LatinToRussian =
             new Dictionary<string, char>
@@ -80,7 +95,22 @@ namespace Transliterator
                     {"e-", 'э'},
                     {"yu", 'ю'},
                     {"ya", 'я'},
-                    {"_", ' '}
-                };
+                    {"_", ' '},
+                    {"-", '-'},
+                    {"0", '0'},
+                    {"1", '1'},
+                    {"2", '2'},
+                    {"3", '3'},
+                    {"4", '4'},
+                    {"5", '5'},
+                    {"6", '6'},
+                    {"7", '7'},
+                    {"8", '8'},
+                    {"9", '9'},
+                    {"+", '+'},
+                    {"/", '/'},
+                    {"!", '!'},
+                    {"#", '#'}
+                }.Concat("йцукенгшщзхъфывапролджэячсмитьбюё".Select(x => new KeyValuePair<string, char>(x.ToString(), x))).ToDictionary(x => x.Key, y => y.Value);
     }
 }
