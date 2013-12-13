@@ -81,51 +81,6 @@ namespace Transliterator
             throw new UnknownSequenceOfSymbolsException(text[0], 0);
         }
 
-        public void PrintForJS()
-        {
-            PrintForJSRecursively(root, '*', true);
-        }
-
-        public void PrintForJSRecursively(TreeNode current, char value, bool isLast)
-        {
-            string elem = " { Value: " + WrapLetter(value) + ", IsEndpoint: " + current.IsEndpoint.ToString().ToLower();
-            if (current.IsEndpoint)
-            {
-                elem += ", RelatedLetter: " + WrapLetter(current.RelatedLetter);
-            }
-
-            if (current.IsLeaf())
-            {
-                elem += "}, ";
-                Console.WriteLine(elem);
-            }
-
-            else
-            {
-                Console.WriteLine(elem + ", ChildNodes: [");
-
-                KeyValuePair<char, TreeNode>[] childs = current.EnumerateChilds().ToArray();
-                for (int index = 0; index < childs.Length; index++)
-                {
-                    var childNode = childs[index];
-                    bool wasLast = false;
-                    if (index == childs.Length - 1)
-                    {
-                        wasLast = true;
-                    }
-
-                    PrintForJSRecursively(childNode.Value, childNode.Key, wasLast);
-                }
-
-                Console.WriteLine("] }, ");
-            }
-        }
-
-        private string WrapLetter(char letter)
-        {
-            return "'" + letter + "'";
-        }
-
         private TreeNode root;
     }
 }

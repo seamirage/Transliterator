@@ -43,11 +43,6 @@ namespace Transliterator
             return !childNodes.Any();
         }
 
-        public IEnumerable<KeyValuePair<char, TreeNode>> EnumerateChilds()
-        {
-            return childNodes;
-        }
-
         public bool IsEndpoint { get; private set; }
         public char RelatedLetter;
         private readonly Dictionary<char, TreeNode> childNodes;

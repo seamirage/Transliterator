@@ -29,7 +29,7 @@ namespace Transliterator.Tests
         [TestCase(".")]
         [TestCase("fgdkl*")]
         [ExpectedException(typeof(UnknownSequenceOfSymbolsException))]
-        public void PointTest(string incorrectText)
+        public void IncorrectSymbolsTest(string incorrectText)
         {
             Test(incorrectText, "");
         }
@@ -39,25 +39,6 @@ namespace Transliterator.Tests
             FromLatinToAnotherLanguageTransliterator transliterator = new FromLatinToAnotherLanguageTransliterator(UrlTransliterationTable.LatinToRussian);
             var russianString = transliterator.Transliterate(englishText);
             Assert.AreEqual(expectedRussianText, russianString);
-        }
-
-        [Test]
-        public void IndexTreeJS()
-        {
-            InvertedIndexTree tree = new InvertedIndexTree();
-            tree.Load(UrlTransliterationTable.LatinToRussian);
-            tree.PrintForJS();
-        }
-
-        [Test]
-        public void TransliterationTable()
-        {
-            Console.WriteLine("{");
-            foreach (KeyValuePair<char, string> relation in UrlTransliterationTable.RussianToLatin)
-            {
-                Console.WriteLine("" + "'"+ relation.Key+"' :" + "'" + relation.Value + "' ,");
-            }
-            Console.WriteLine("}");
         }
     }
 }
