@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using Transliterator.UnknownSymbolsHandlingStrategies;
 
 namespace Transliterator.Tests
 {
@@ -16,18 +15,19 @@ namespace Transliterator.Tests
         [TestCase("car'", "царь")]
         [TestCase("prodam_dachu_s_banej_i_pech'yu_v_port_arture", "продам дачу с баней и печью в порт артуре")]
         [TestCase("e-kran", "экран")]
-        [TestCase("pod._em", "подъем")]
+        [TestCase("pod^em", "подъем")]
         [TestCase("shh", "щ")]
         [TestCase("", "")]
         [TestCase("1-komnatnaya_kvartira", "1-комнатная квартира")]
+        [TestCase("bmw", "бмw")]
         public void TestIt(string english, string expectedRussian)
         {
             Test(english, expectedRussian);
         }
 
         [Test]
-        [TestCase(".")]
-        [TestCase("fgdkl*")]
+        [TestCase("%")]
+        [TestCase("fl*")]
         [ExpectedException(typeof(UnknownSequenceOfSymbolsException))]
         public void IncorrectSymbolsTest(string incorrectText)
         {
@@ -36,7 +36,7 @@ namespace Transliterator.Tests
 
         private static void Test(string englishText, string expectedRussianText)
         {
-            FromLatinToAnotherLanguageTransliterator transliterator = new FromLatinToAnotherLanguageTransliterator(UrlTransliterationTable.LatinToRussian);
+            FromLatinToAnotherLanguageTransliterator transliterator = new FromLatinToAnotherLanguageTransliterator(TransliterationTable.UrlLatinToRussian, new ThrowsExceptionUnknownSymbolHandlingStrategy());
             var russianString = transliterator.Transliterate(englishText);
             Assert.AreEqual(expectedRussianText, russianString);
         }

@@ -48,7 +48,7 @@ namespace Transliterator
             }
         }
 
-        public char SearchMaxOccurence(string text, ref int index)
+        public bool TrySearchMaxOccurence(string text, ref int index, out char relatedLetter)
         {
             TreeNode current = root;
 
@@ -64,23 +64,30 @@ namespace Transliterator
                 {
                     if (current.IsEndpoint)
                     {
-                        return current.RelatedLetter;
+                        relatedLetter = current.RelatedLetter;
+                        return true;
                     }
                     else
                     {
-                        throw new UnknownSequenceOfSymbolsException(text[index], index);
+                        relatedLetter = default(char);
+                        return false;
                     }
                 }
             }
 
             if (current.IsEndpoint)
             {
-                return current.RelatedLetter;
+                relatedLetter = current.RelatedLetter;
+                return true;
             }
-
-            throw new UnknownSequenceOfSymbolsException(text[0], 0);
+            else
+            {
+                relatedLetter = default(char);
+                --index;
+                return false;    
+            }
         }
-
+      
         private TreeNode root;
     }
 }

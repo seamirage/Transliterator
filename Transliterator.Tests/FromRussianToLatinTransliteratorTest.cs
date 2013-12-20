@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using NUnit.Framework;
+using Transliterator.UnknownSymbolsHandlingStrategies;
 
 namespace Transliterator.Tests
 {
@@ -7,9 +10,10 @@ namespace Transliterator.Tests
     {
         [TestCase("щука", "shhuka")]
         [TestCase("экран", "e-kran")]
+        [TestCase("один-кран", "odin-kran")]
         public void TestIt(string russianText, string expectedLatinText)
         {
-            FromAnotherLanguageToLatinTransliterator transliterator = new FromAnotherLanguageToLatinTransliterator(UrlTransliterationTable.RussianToLatin);
+            FromAnotherLanguageToLatinTransliterator transliterator = new FromAnotherLanguageToLatinTransliterator(TransliterationTable.UrlRussianToLatin, new ThrowsExceptionUnknownSymbolHandlingStrategy());
             string latinText = transliterator.Transliterate(russianText);
             Assert.AreEqual(expectedLatinText, latinText);
         }

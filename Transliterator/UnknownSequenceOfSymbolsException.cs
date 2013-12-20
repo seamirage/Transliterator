@@ -8,5 +8,10 @@ namespace Transliterator
             : base("Unknown sequence of symbols, starts from: " + unknownSymbol + " at position: " + index)
         {
         }
+
+        public UnknownSequenceOfSymbolsException(char unknownSymbol)
+            : base("Unknown sequence of symbols, starts from: " + unknownSymbol)
+        {
+        }
     }
 }

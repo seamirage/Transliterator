@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using System.Text;
+using Transliterator.UnknownSymbolsHandlingStrategies;
 
 namespace Transliterator
 {
     public class FromLatinToAnotherLanguageTransliterator : ITransliterator
     {
-        public FromLatinToAnotherLanguageTransliterator(IEnumerable<KeyValuePair<string, char>> transliterationTable)
+        public FromLatinToAnotherLanguageTransliterator(IEnumerable<KeyValuePair<string, char>> transliterationTable, IUnknownSymbolHandlingStrategy unknownSymbolHandlingStrategy)
         {
+            this.unknownSymbolHandlingStrategy = unknownSymbolHandlingStrategy;
             tree = new InvertedIndexTree();
             tree.Load(transliterationTable);
         }
 
-        public string Transliterate(string englishText)
+        public virtual string Transliterate(string englishText)
         {
             englishText = englishText.ToLower();
 
@@ -19,13 +21,31 @@ namespace Transliterator
             int index = 0;
             while (index < englishText.Length)
             {
-                var letter = tree.SearchMaxOccurence(englishText, ref index);
-                sb.Append(letter);
+                char letter;
+                if (tree.TrySearchMaxOccurence(englishText, ref index, out letter))
+                {
+                    sb.Append(letter);                                   
+                }
+                else
+                {
+                    HandleUnknownLetter(englishText[index], sb);
+                    ++index;
+                }
             }
 
             return sb.ToString();
         }
 
+        private void HandleUnknownLetter(char unknownLetter, StringBuilder sb)
+        {
+            string relatedLetter;
+            if (unknownSymbolHandlingStrategy.TryHandleUnknownSymbol(unknownLetter, out relatedLetter))
+            {
+                sb.Append(relatedLetter);
+            }
+        }
+
         private InvertedIndexTree tree;
+        private IUnknownSymbolHandlingStrategy unknownSymbolHandlingStrategy;
     }
 }

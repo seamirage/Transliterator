@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
+using Transliterator.UnknownSymbolsHandlingStrategies;
 
 namespace Transliterator
 {
     public class FromAnotherLanguageToLatinTransliterator : ITransliterator
     {
-        public FromAnotherLanguageToLatinTransliterator(IDictionary<char, string> transliterationTable)
+        public FromAnotherLanguageToLatinTransliterator(IDictionary<char, string> transliterationTable, IUnknownSymbolHandlingStrategy unknownSymbolHandlingStrategy)
         {
             this.transliterationTable = transliterationTable;
+            this.unknownSymbolHandlingStrategy = unknownSymbolHandlingStrategy;
         }
 
         public string Transliterate(string russianText)
@@ -16,14 +17,18 @@ namespace Transliterator
             StringBuilder sb = new StringBuilder();
             foreach (char c in russianText)
             {
-                try
+                if (transliterationTable.ContainsKey(c))
                 {
                     string translit = transliterationTable[c];
-                    sb.Append(translit);
+                    sb.Append(translit);   
                 }
-                catch (KeyNotFoundException ex)
+                else
                 {
-                    throw new KeyNotFoundException(string.Format("Can't find {0} in transliteration table. Code: {1}", c, (int)c), ex);
+                    string resolvedTranslit;
+                    if (unknownSymbolHandlingStrategy.TryHandleUnknownSymbol(c, out resolvedTranslit))
+                    {
+                        sb.Append(resolvedTranslit);
+                    }
                 }
             }
 
@@ -31,5 +36,6 @@ namespace Transliterator
         }
 
         private readonly IDictionary<char, string> transliterationTable;
+        private readonly IUnknownSymbolHandlingStrategy unknownSymbolHandlingStrategy;
     }
 }

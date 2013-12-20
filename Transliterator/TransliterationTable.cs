@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Transliterator
 {
-    public static class UrlTransliterationTable
+    public static class TransliterationTable
     {
-        public static IDictionary<char, string> RussianToLatin = 
+        public static IDictionary<char, string> UrlRussianToLatin = 
             new Dictionary<string, char>
                 {
                     {"a", 'а'},
@@ -37,7 +37,7 @@ namespace Transliterator
                     {"shh", 'щ'},
                     {"'", 'ь'},
                     {"y", 'ы'},
-                    {"._", 'ъ'},
+                    {"^", 'ъ'},
                     {"e-", 'э'},
                     {"yu", 'ю'},
                     {"ya", 'я'},
@@ -56,10 +56,12 @@ namespace Transliterator
                     {"+", '+'},
                     {"/", '/'},
                     {"!", '!'},
-                    {"#", '#'}
+                    {"#", '#'},
+                    {".", '.'},
+
                 }.Concat("qwertyuiopasdfghjklzxcvbnm_".Select(x => new KeyValuePair<string, char>(x.ToString(), x))).ToDictionary(x => x.Value, y => y.Key);
 
-        public static IDictionary<string, char> LatinToRussian =
+        public static IDictionary<string, char> UrlLatinToRussian =
             new Dictionary<string, char>
                 {
                     {"a", 'а'},
@@ -89,9 +91,10 @@ namespace Transliterator
                     {"ch", 'ч'},
                     {"sh", 'ш'},
                     {"shh", 'щ'},
+                    {"w", 'w'},
                     {"'", 'ь'},
                     {"y", 'ы'},
-                    {"._", 'ъ'},
+                    {"^", 'ъ'},
                     {"e-", 'э'},
                     {"yu", 'ю'},
                     {"ya", 'я'},
@@ -110,7 +113,8 @@ namespace Transliterator
                     {"+", '+'},
                     {"/", '/'},
                     {"!", '!'},
-                    {"#", '#'}
+                    {"#", '#'},
+                    {".", '.'}
                 }.Concat("йцукенгшщзхъфывапролджэячсмитьбюё".Select(x => new KeyValuePair<string, char>(x.ToString(), x))).ToDictionary(x => x.Key, y => y.Value);
     }
 }
